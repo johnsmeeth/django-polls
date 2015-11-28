@@ -1,0 +1,51 @@
+* Tutorial 2: Admin site
+	1. Customize templates
+		1.1. Customize project's template
+			+ Specify project's template in settings.py on TEMPLATES at DIRS as below:
+				TEMPLATES = [
+				    {
+				        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+				        'DIRS': [os.path.join(BASE_DIR, 'templates')], # project's template
+				        'APP_DIRS': True,
+				        'OPTIONS': {
+				            'context_processors': [
+				                'django.template.context_processors.debug',
+				                'django.template.context_processors.request',
+				                'django.contrib.auth.context_processors.auth',
+				                'django.contrib.messages.context_processors.messages',
+				            ],
+				        },
+				    },
+				]
+			+ Any project's templates live in templates directory on root project directory (contain manage.py file).
+			+ To customize django's default templates, Just override it by copy it from django to project templates directory and make change.
+		2.2. Customize app's template
+
+
+* Tutorial 3: Views and templates
+	1. Root urlconf is urls.py at project directory (directory has manage.py)
+	2. App urlconf is urls.py on app's directory (directory has models.py, views.py ...)
+	3. Url name: Is 4th argument of url(regex, view, kwargs, name) function.
+	4. Namescace url: is 2nd argument of include(urlconf, namespace). This resolve problem of
+		there are two or more apps in project has the same url name.
+		ex:	1. In project urlconf
+				urlpatterns = [
+					url(r'^polls/', include('polls.url', namespace='polls')),
+					url(r'^blog/', include('blog.urls', namespace='blog')),
+				]
+
+			2. In polls app urlconf
+				urlpatterns = [
+					url(r'^$', views.index, name='index'),
+					url(r'^(?P<question_id>[0-9]+)/$', views.detail, name='detail'),
+				]
+
+			3. In blog app urlconf
+				urlpatterns = [
+					url(r'^$', views.index, name='index'),
+					url(r'^(?P<post_id>[0-9]+)/$', views.detail, name='detail')
+				]
+
+			=> Usage in template as: <a href="{% url 'polls:detail' question.id %}">{{question.text}}</a>
+
+* Tutorial 4: Form and generic views

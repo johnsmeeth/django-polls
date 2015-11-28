@@ -1,0 +1,20 @@
+{% extends "admin/base.html" %}
+
+{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block branding %}
+{% comment %}
+	Default title on admin panel (Note: To comment a block use this syntax)
+{% endcomment %}
+{# <h1 id="site-name"><a href="{% url 'admin:index' %}">{{ site_header|default:_('Django administration') }}</a></h1> #}
+
+{# Change to below (Note: To comment inline use this syntax) #}
+<h1 id="site-name"><a href="{% url 'admin:index' %}">Polls Administration</a></h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
+
+{% comment %}
+	We have copy this template from django to admin template and edit this: It called override
+	a template. And note any django's default templates can be overridden
+{% endcomment %}
